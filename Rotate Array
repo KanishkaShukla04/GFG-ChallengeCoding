@@ -1,0 +1,63 @@
+Problem- Given an array arr[] . Rotate the array to the left (counter-clockwise direction) by d steps, where d is a positive integer. Do the mentioned change in the array in place.
+Note: Consider the array as circular.
+Examples :
+Input: arr[] = [1, 2, 3, 4, 5], d = 2
+Output: [3, 4, 5, 1, 2]
+Explanation: when rotated by 2 elements, it becomes [3, 4, 5, 1, 2].
+Input: arr[] = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20], d = 3
+Output: [8, 10, 12, 14, 16, 18, 20, 2, 4, 6]
+Explanation: when rotated by 3 elements, it becomes [8, 10, 12, 14, 16, 18, 20, 2, 4, 6].
+Input: arr[] = [7, 3, 9, 1], d = 9
+Output: [3, 9, 1, 7]
+Explanation: when we rotate 9 times, we'll get [3, 9, 1, 7] as resultant array.
+Constraints:
+1 ≤  arr.size(), d ≤  105
+0 ≤  arr[i] ≤  105
+Approach-Block-Swap
+Solution-
+class Solution {
+    public static void rotateArr(int arr[], int d) {
+        if(arr==null|| arr.length<1)
+        {
+            return;
+        }
+        int n=arr.length;
+        d=d%n;
+        if(d==0)
+        {
+            return;
+        }
+        int gcdVal = gcd(d,n);
+        for(int i=0;i<gcdVal;i++){
+            int temp=arr[i];
+            int j=i;
+            while(true){
+                int k=(j+d)%n;
+                if(k==i){
+                    break;
+                }
+                arr[j]=arr[k];
+                j=k;
+            }
+            arr[j]=temp;
+            
+        }
+        
+    }
+    private static int gcd(int a, int b)
+    {
+        while(b!=0)
+        {
+            int temp=b;
+            b=a%b;
+            a=temp;
+        }
+        return a;
+    }
+    public static void main(String args[])
+    {
+        int[]arr={1,2,3,4,5,6};
+        rotateArr(arr,2);
+        System.out.println(Arrays.toString(arr));
+    }
+}
